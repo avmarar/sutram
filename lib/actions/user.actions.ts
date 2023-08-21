@@ -1,10 +1,13 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import User from '../models/user.model';
-import { connectToDB } from '../mongoose';
-import Thread from '../models/thread.model';
 import { FilterQuery, SortOrder } from 'mongoose';
+
+import { connectToDB } from '../mongoose';
+
+import User from '../models/user.model';
+import Thread from '../models/thread.model';
+import Community from '../models/community.model';
 
 interface Params {
     userId: string;
@@ -16,9 +19,8 @@ interface Params {
 }
 
 export const updateUser = async ({ userId, username, name, bio, image, path }: Params): Promise<void> => {
-    connectToDB();
-
     try {
+        connectToDB();
         await User.findOneAndUpdate(
             { id: userId },
             { username: username.toLowerCase(), name, bio, image, onboarded: true },
@@ -36,36 +38,41 @@ export const updateUser = async ({ userId, username, name, bio, image, path }: P
 export const fetchUser = async (userId: string) => {
     try {
         connectToDB();
-        return await User.findOne({ id: userId });
-        // .populate({
-        //     path: 'communities',
-        //     model: 'Community'
-        // });
+        return await User.findOne({ id: userId }).populate({
+            path: 'communities',
+            model: 'Community'
+        });
     } catch (error: any) {
         throw new Error(`Failed to fetch user: ${error.message}`);
     }
 };
 
 export const fetchUserPosts = async (userId: string) => {
-    connectToDB();
-    //TODO: populate community
     try {
+        connectToDB();
         const threads = await User.findOne({ id: userId }).populate({
             path: 'threads',
             model: Thread,
-            populate: {
-                path: 'children',
-                model: Thread,
-                populate: {
-                    path: 'author',
-                    model: User,
-                    select: 'name image id'
+            populate: [
+                {
+                    path: 'community',
+                    model: 'Community',
+                    select: 'name id image _id'
+                },
+                {
+                    path: 'children',
+                    model: Thread,
+                    populate: {
+                        path: 'author',
+                        model: User,
+                        select: 'name image id'
+                    }
                 }
-            }
+            ]
         });
         return threads;
     } catch (error: any) {
-        throw new Error(`Faile to fetch posts: ${error.message}`);
+        throw new Error(`Failed to fetch posts: ${error.message}`);
     }
 };
 
@@ -82,9 +89,8 @@ export const fetchUsers = async ({
     search?: string;
     sortBy?: SortOrder;
 }) => {
-    connectToDB();
-
     try {
+        connectToDB();
         const skipAmount = (pageNumber - 1) * pageSize;
 
         const regex = new RegExp(search, 'i');
@@ -132,5 +138,23 @@ export const getActivites = async (userId: string) => {
         return replies;
     } catch (error: any) {
         throw new Error(`Failed to fetch activities: ${error.message}`);
+    }
+};
+
+export const fetchUserReplies = async (userId: string) => {
+    try {
+        connectToDB();
+
+        const userReplies = await Thread.find({
+            author: userId,
+            parentId: { $not: { $in: [null, undefined] } }
+        }).populate({
+            path: 'author',
+            model: User,
+            select: 'name image id'
+        });
+        return userReplies;
+    } catch (error: any) {
+        throw new Error(`Failed to fetch replies: ${error.message}`);
     }
 };

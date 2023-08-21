@@ -1,12 +1,12 @@
 import { redirect } from 'next/navigation';
-// import Image from 'next/image';
 import { currentUser } from '@clerk/nextjs';
 
 import UserCard from '@/components/cards/UserCard';
+import Searchbar from '@/components/shared/Searchbar';
 
 import { fetchUsers, fetchUser } from '@/lib/actions/user.actions';
 
-const Page = async () => {
+const Page = async ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
     const user = await currentUser();
     if (!user) return null;
 
@@ -17,27 +17,16 @@ const Page = async () => {
         userId: user.id,
         pageNumber: 1,
         pageSize: 25,
-        search: ''
+        search: searchParams.q
     });
 
     return (
         <section>
             <h1 className="head-text mb-10">Search Page</h1>
-            {/* Search Bar */}
+            <Searchbar routeType="search" />
             <div className="mt-14 flex flex-col gap-9">
                 {results.users.length === 0 ? (
-                    // <div className='text-center'>
-                    //     <Image
-                    //         src='/images/search.svg'
-                    //         alt='search icon'
-                    //         width={100}
-                    //         height={100}
-                    //     />
-                    //     <h1 className='text-3xl font-bold text-gray-900'>
-                    //         No results found
-                    //     </h1>
-                    // </div>
-                    <p className="no-result">No Users</p>
+                    <p className="no-result">No result</p>
                 ) : (
                     <>
                         {results.users.map((user) => (
