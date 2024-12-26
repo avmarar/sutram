@@ -1,22 +1,22 @@
-import { currentUser } from '@clerk/nextjs'
-import { redirect } from 'next/navigation'
+import { currentUser } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 
-import ThreadCard from '@/components/cards/ThreadCard'
-import Comment from '@/components/forms/Comment'
+import ThreadCard from '@/components/cards/ThreadCard';
+import Comment from '@/components/forms/Comment';
 
-import { fetchThreadById } from '@/lib/actions/thread.actions'
-import { fetchUser } from '@/lib/actions/user.actions'
+import { fetchThreadById } from '@/lib/actions/thread.actions';
+import { fetchUser } from '@/lib/actions/user.actions';
 
 const Page = async ({ params }: { params: { id: string } }) => {
-    if (!params.id) return null
+    if (!params.id) return null;
 
-    const user = await currentUser()
-    if (!user) return null
+    const user = await currentUser();
+    if (!user) return null;
 
-    const userInfo = await fetchUser(user.id)
-    if (!userInfo) redirect('/onboard')
+    const userInfo = await fetchUser(user.id);
+    if (!userInfo) redirect('/onboard');
 
-    const thread = await fetchThreadById(params.id)
+    const thread = await fetchThreadById(params.id);
 
     return (
         <section className="relative">
@@ -57,7 +57,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                 ))}
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default Page
+export default Page;

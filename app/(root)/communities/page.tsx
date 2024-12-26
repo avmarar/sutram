@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { currentUser } from '@clerk/nextjs';
+import { currentUser } from '@clerk/nextjs/server';
 
 import { fetchCommunities } from '@/lib/actions/community.actions';
 import { fetchUser } from '@/lib/actions/user.actions';
