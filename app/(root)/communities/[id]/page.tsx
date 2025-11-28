@@ -14,7 +14,6 @@ const Page = async ({ params }: { params: { id: string } }) => {
     if (!user) return null;
 
     const communityDetails = await fetchCommunityDetails(params.id);
-    communityDetails;
 
     return (
         <section>

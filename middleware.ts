@@ -4,7 +4,7 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/nextjs/middleware for more information about configuring your middleware
 
-const isPublicRoute = createRouteMatcher(['/api/webhook/clerk', '/api/uploadthing']);
+const isPublicRoute = createRouteMatcher(['/api/webhook/clerk', '/api/uploadthing', '/sign-in(.*)', '/sign-up(.*)']);
 
 export default clerkMiddleware(async (auth, req) => {
     if (isPublicRoute(req)) return; // if it's a public route, do nothing

@@ -2,12 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { sidebarLinks } from '@/constants';
 
 const Bottombar = () => {
-    const router = useRouter();
     const pathname = usePathname();
     return (
         <section className="bottombar">

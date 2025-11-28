@@ -12,7 +12,7 @@ interface Props {
     personType: string;
 }
 
-const UserCard = ({ id, name, username, imgUrl, personType }: Props) => {
+const UserCard = ({ id, name, username, imgUrl }: Props) => {
     const router = useRouter();
     return (
         <article className="user-card">
