@@ -9,9 +9,7 @@ interface Props {
 }
 
 const RepliesTab = async ({ currentUserId }: Props) => {
-    let results: any;
-
-    results = await fetchUserReplies(currentUserId);
+    const results = await fetchUserReplies(currentUserId);
     console.log('result:', results);
 
     if (!results) {

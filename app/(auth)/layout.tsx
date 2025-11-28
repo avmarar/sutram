@@ -1,6 +1,5 @@
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 
 import '../globals.css';
 
@@ -8,8 +7,6 @@ export const metadata: Metadata = {
     title: 'Sutra',
     description: 'A NextJS 13 Application'
 };
-
-const inter = Inter({ subsets: ['latin'] });
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (

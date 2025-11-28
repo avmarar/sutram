@@ -12,7 +12,7 @@ const Page = async ({ searchParams }: { searchParams: { [key: string]: string | 
     if (!user) return null;
 
     const userInfo = await fetchUser(user.id);
-    if (!userInfo?.onboarded) redirect('/onboarding');
+    if (!userInfo?.onboarded) redirect('/onboard');
 
     const results = await fetchCommunities({
         pageNumber: 1,

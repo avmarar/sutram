@@ -9,14 +9,16 @@ export const connectToDB = async () => {
         return console.log('MongoDB URL not found!');
     }
 
-    if (isConnected) {
-        return console.log('Already connected to MongoDB!');
+    if (isConnected) return;
+    if (mongoose.connections[0]?.readyState === 1) {
+        isConnected = true;
+        return;
     }
 
     try {
         await mongoose.connect(process.env.MONGODB_URL);
         isConnected = true;
-        console.log('Connected to MongoDB!!');
+        console.log('Connected to MongoDB');
     } catch (error) {
         console.log('Error: ', error);
     }
