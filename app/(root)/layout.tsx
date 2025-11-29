@@ -12,8 +12,8 @@ import Topbar from '@/components/shared/Topbar';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Sutra',
-    description: 'A NextJS 13 Application'
+    title: 'ThreadLoom',
+    description: 'ThreadLoom • Community discussions woven together'
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
