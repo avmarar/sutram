@@ -8,11 +8,17 @@ import { currentUser } from '@clerk/nextjs/server';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 
-const Page = async ({ params }: { params: { id: string } }) => {
+type ProfilePageProps = {
+    params: Promise<{ id: string }>;
+};
+
+const Page = async ({ params }: ProfilePageProps) => {
     const user = await currentUser();
     if (!user) return null;
 
-    const userInfo = await fetchUser(params.id);
+    const resolvedParams = await params;
+
+    const userInfo = await fetchUser(resolvedParams.id);
     if (!userInfo?.onboarded) redirect('/onboard');
 
     return (
@@ -40,7 +46,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                                 />
                                 <p className="max-sm:hidden">{tab.label}</p>
                                 {tab.label === 'Threads' && (
-                                    <p className="ml-1 rounded-sm bg-light-4 px-1 py-1 !text-tiny-medium text-light-2">
+                                    <p className="ml-1 rounded-xs bg-light-4 px-1 py-1 text-tiny-medium! text-light-2">
                                         {userInfo?.threads?.length}
                                     </p>
                                 )}

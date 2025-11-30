@@ -7,17 +7,23 @@ import { fetchUser } from '@/lib/actions/user.actions';
 import CommunityCard from '@/components/cards/CommunityCard';
 import Searchbar from '@/components/shared/Searchbar';
 
-const Page = async ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
+type CommunityPageProps = {
+    searchParams: Promise<Record<string, string | undefined>>;
+};
+
+const Page = async ({ searchParams }: CommunityPageProps) => {
     const user = await currentUser();
     if (!user) return null;
 
     const userInfo = await fetchUser(user.id);
     if (!userInfo?.onboarded) redirect('/onboard');
 
+    const resolvedSearchParams = await searchParams;
+
     const results = await fetchCommunities({
         pageNumber: 1,
         pageSize: 25,
-        searchString: searchParams.q
+        searchString: resolvedSearchParams.q
     });
 
     return (

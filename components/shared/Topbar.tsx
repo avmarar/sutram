@@ -25,11 +25,11 @@ const Topbar = () => {
                         baseTheme: dark,
                         elements: {
                             organizationSwitcherTrigger:
-                                'py-2 px-4 bg-dark-3 text-light-1 border border-dark-4 hover:bg-dark-2 transition data-[state=open]:bg-dark-2 data-[state=open]:text-light-1 data-[active=true]:text-light-1 !text-light-1',
+                                'py-2 px-4 bg-dark-3 text-light-1 border border-dark-4 hover:bg-dark-2 transition data-[state=open]:bg-dark-2 data-[state=open]:text-light-1 data-[active=true]:text-light-1 text-light-1!',
                             organizationSwitcherTriggerIcon:
-                                'text-light-1 group-hover:text-light-1 data-[state=open]:text-light-1 data-[active=true]:text-light-1 !text-light-1',
+                                'text-light-1 group-hover:text-light-1 data-[state=open]:text-light-1 data-[active=true]:text-light-1 text-light-1!',
                             organizationSwitcherTriggerText:
-                                'text-light-1 hover:text-light-1 data-[state=open]:text-light-1 data-[active=true]:text-light-1 !text-light-1',
+                                'text-light-1 hover:text-light-1 data-[state=open]:text-light-1 data-[active=true]:text-light-1 text-light-1!',
                             organizationSwitcherPopoverCard: 'bg-dark-3 border border-dark-4 text-light-1',
                             organizationSwitcherPopoverHeader: 'text-light-1',
                             organizationSwitcherPopoverText: 'text-light-1',

@@ -9,11 +9,16 @@ import { communityTabs } from '@/constants';
 import { fetchCommunityDetails } from '@/lib/actions/community.actions';
 import UserCard from '@/components/cards/UserCard';
 
-const Page = async ({ params }: { params: { id: string } }) => {
+type CommunityProfilePageProps = {
+    params: Promise<{ id: string }>;
+};
+
+const Page = async ({ params }: CommunityProfilePageProps) => {
     const user = await currentUser();
     if (!user) return null;
 
-    const communityDetails = await fetchCommunityDetails(params.id);
+    const resolvedParams = await params;
+    const communityDetails = await fetchCommunityDetails(resolvedParams.id);
 
     return (
         <section>
@@ -40,7 +45,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                                 />
                                 <p className="max-sm:hidden">{tab.label}</p>
                                 {tab.label === 'Threads' && (
-                                    <p className="ml-1 rounded-sm bg-light-4 px-1 py-1 !text-tiny-medium text-light-2">
+                                    <p className="ml-1 rounded-xs bg-light-4 px-1 py-1 text-tiny-medium! text-light-2">
                                         {communityDetails?.threads?.length}
                                     </p>
                                 )}

@@ -3,6 +3,7 @@
 ThreadLoom is a full-stack community discussion platform. Members authenticate with Clerk, join or create communities, and publish long-form threads that unfold into rich, nested conversations. Clerk organization webhooks stay in sync with ThreadLoom’s MongoDB models so memberships, communities, and activity streams stay consistent without manual bookkeeping.
 
 ## Features
+
 - **Personalized feed** – server-side rendered timeline of threads from people and communities you follow.
 - **Community workspaces** – Clerk organizations map directly to ThreadLoom communities (name, slug, logo, members).
 - **Thread composer** – validated forms powered by React Hook Form + Zod for posts and replies.
@@ -11,6 +12,7 @@ ThreadLoom is a full-stack community discussion platform. Members authenticate w
 - **Role-aware layout** – shared top/bottom/side bars with Clerk-aware links and sign-out controls.
 
 ## Tech Stack
+
 - [Next.js 14 (App Router)](https://nextjs.org/)
 - [React 18](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
@@ -38,39 +40,45 @@ flowchart LR
 ## Getting Started
 
 1. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn
-   ```
+
+    ```bash
+    npm install
+    # or
+    yarn
+    ```
 
 2. **Create environment vars**  
    Copy `.env.example` (if present) or create `.env.local` and supply the secrets below:
-   ```
-   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
-   CLERK_SECRET_KEY=...
-   NEXT_CLERK_WEBHOOK_SECRET=...
-   MONGODB_URL=mongodb+srv://...
-   UPLOADTHING_SECRET=...
-   UPLOADTHING_APP_ID=...
-   ```
+
+    ```
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=...
+    CLERK_SECRET_KEY=...
+    NEXT_CLERK_WEBHOOK_SECRET=...
+    MONGODB_URL=mongodb+srv://...
+    UPLOADTHING_SECRET=...
+    UPLOADTHING_APP_ID=...
+    ```
 
 3. **Run the dev server**
-   ```bash
-   npm run dev
-   ```
-   Visit `http://localhost:3000`.
+
+    ```bash
+    npm run dev
+    ```
+
+    Visit `http://localhost:3000`.
 
 4. **Webhook tunnel (optional)**  
    If you test Clerk webhooks locally, expose your dev server via `ngrok` and register the public URL inside the Clerk dashboard pointing to `/api/webhook/clerk`.
 
 ## Available Scripts
+
 - `npm run dev` – start the Next.js dev server
 - `npm run build` – create a production build
 - `npm run start` – serve the built app
 - `npm run lint` – run ESLint with Next.js config
 
 ## Project Structure Highlights
+
 ```
 app/                   # Next.js routes (App Router)
   (auth)/              # Onboarding + auth-only layout
@@ -92,6 +100,7 @@ ThreadLoom is optimized for [Vercel](https://vercel.com/). Set all required envi
 ## Contributing
 
 We welcome improvements of any size:
+
 1. Fork the repo and create a topic branch (`git checkout -b feature/your-idea`).
 2. Implement the change, add/update tests when relevant, and run `npm run lint`.
 3. Open a pull request describing the motivation, screenshots (for UI), and validation steps.
