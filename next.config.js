@@ -1,12 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: {
-        serverComponentsExternalPackages: ['mongoose']
-    },
-    eslint: {
+    serverExternalPackages: ['@uploadthing/react', 'mongoose'],
+    typescript: {
         // Warning: This allows production builds to successfully complete even if
         // your project has ESLint errors.
-        ignoreDuringBuilds: true
+        ignoreBuildErrors: true
     },
     images: {
         remotePatterns: [
