@@ -56,7 +56,7 @@ const Comment = ({ threadId, currentUserImg, currentUserId }: Props) => {
                                     type="text"
                                     {...field}
                                     placeholder="Comment..."
-                                    className="no-focus text-light-1 outline-none"
+                                    className="no-focus text-light-1 outline-hidden"
                                 />
                             </FormControl>
                         </FormItem>
